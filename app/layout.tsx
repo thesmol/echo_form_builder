@@ -19,7 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider localization={ruRU}>
-      <html lang="ru">
+      <html lang="ru" suppressHydrationWarning>
+        <head />
         <body className={inter.className}>
           <ThemeProvider
             attribute="class"
