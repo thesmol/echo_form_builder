@@ -5,20 +5,31 @@ import { currentUser } from "@clerk/nextjs";
 
 class UserNotFoundError extends Error { }
 
+interface User {
+    id: string;
+}
+
+interface FormStats {
+    visits: number;
+    submissions: number;
+    submissionRate: number;
+    bounceRate: number;
+}
+
 /**
  * Retrieves and calculates statistics for forms created by the current user.
  * 
  * This function fetches the total number of visits and submissions for all forms
  * created by the current user. It then calculates the submission rate and bounce rate
  * based on these statistics.
- * 
- * @returns {Promise<{visits: number, submissions: number, submissionRate: number, bounceRate: number}>}
+ *
+ * @returns {Promise<{visits, submissions, submissionRate, bounceRate}>}
  * An object containing the total number of visits, submissions, submission rate, and bounce rate.
- * 
+ *
  * @throws {UserNotFoundError} If the current user cannot be determined (e.g., not logged in).
  */
-export async function getFormStats() {
-    const user = await currentUser();
+export async function GetFormStats(): Promise<FormStats> {
+    const user: User | null = await currentUser();
     if (!user) {
         throw new UserNotFoundError();
     }
