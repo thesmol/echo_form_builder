@@ -1,9 +1,14 @@
-import Image from "next/image";
+import { Suspense } from "react";
+import CardStatsWrapper, { StatsCards } from "@/components/CardStatsWrapper";
 
 export default function Home() {
   return (
-    <div>
-      
+    <div className="container pt-4">
+      <Suspense
+        fallback={<StatsCards loading={true} />}
+      >
+        <CardStatsWrapper />
+      </Suspense>
     </div>
   );
 }
