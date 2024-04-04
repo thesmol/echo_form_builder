@@ -1,20 +1,10 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { FormStats, User } from "@/types/types";
 import { currentUser } from "@clerk/nextjs";
 
 class UserNotFoundError extends Error { }
-
-interface User {
-    id: string;
-}
-
-interface FormStats {
-    visits: number;
-    submissions: number;
-    submissionRate: number;
-    bounceRate: number;
-}
 
 /**
  * Retrieves and calculates statistics for forms created by the current user.
