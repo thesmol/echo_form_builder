@@ -1,5 +1,7 @@
 import { GetFormStats } from "@/actions/form";
+import { formSchemaType } from "@/schemas/form";
 import { ReactNode } from "react";
+import { UseFormReturn } from "react-hook-form";
 
 export interface IStatsCardProps {
     title: string,
@@ -24,4 +26,9 @@ export interface IFormStats {
 
 export interface IUser {
     id: string;
+}
+
+export interface ICreationFormProps {
+    form: UseFormReturn<formSchemaType>;
+    onSubmit: (values: formSchemaType) => Promise<void>;
 }
