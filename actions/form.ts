@@ -52,3 +52,42 @@ export async function GetFormStats(): Promise<IFormStats> {
         bounceRate
     }
 }
+
+/**
+ * Creates a new form in the database.
+ * 
+ * @async
+ * @function
+ * @param {formSchemaType} data - The form data, including name and description.
+ * @returns {Promise<number>} The ID of the created form.
+ * @throws {Error} If the form is filled out incorrectly.
+ * @throws {UserNotFoundError} If the current user is not found.
+ * @throws {Error} If an error occurs during form creation.
+ */
+export async function CreateForm(data: formSchemaType): Promise<number> {
+    const validation = formSchema.safeParse(data);
+    if (!validation.success) {
+        throw new Error("Форма не прошла валидацию, данные заполнены некорректно");
+    }
+
+    const user = await currentUser();
+    if (!user) {
+        throw new UserNotFoundError();
+    }
+
+    const { name, description } = data;
+
+    const form = await prisma.form.create({
+        data: {
+            userId: user.id,
+            name,
+            description
+        }
+    })
+
+    if (!form) {
+        throw new Error("Во время создания формы что-то пошло не так");
+    }
+
+    return form.id;
+}
