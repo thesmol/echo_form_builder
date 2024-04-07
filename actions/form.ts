@@ -1,7 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
-import { FormStats, User } from "@/types/types";
+import { IFormStats, IUser } from "@/types/types";
 import { currentUser } from "@clerk/nextjs";
 
 class UserNotFoundError extends Error { }
@@ -18,8 +18,8 @@ class UserNotFoundError extends Error { }
  *
  * @throws {UserNotFoundError} If the current user cannot be determined (e.g., not logged in).
  */
-export async function GetFormStats(): Promise<FormStats> {
-    const user: User | null = await currentUser();
+export async function GetFormStats(): Promise<IFormStats> {
+    const user: IUser | null = await currentUser();
     if (!user) {
         throw new UserNotFoundError();
     }

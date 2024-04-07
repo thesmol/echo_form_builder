@@ -4,14 +4,14 @@ import { HiCursorClick } from "react-icons/hi";
 import { TbArrowBounce } from "react-icons/tb";
 import StatsCard from "./StatsCard";
 import { GetFormStats } from "@/actions/form";
-import { StatsCardsProps } from "@/types/types";
+import { IStatsCardsProps } from "@/types/types";
 
 async function CardStatsWrapper() {
     const stats = await GetFormStats();
     return <StatsCards loading={false} data={stats} />
 };
 
-export function StatsCards(props: StatsCardsProps) {
+export function StatsCards(props: IStatsCardsProps) {
     const { data, loading } = props;
 
     const cards = [
