@@ -1,6 +1,7 @@
 "use server"
 
 import prisma from "@/lib/prisma";
+import { formSchema, formSchemaType } from "@/schemas/form";
 import { IFormStats, IUser } from "@/types/types";
 import { currentUser } from "@clerk/nextjs";
 
@@ -12,7 +13,8 @@ class UserNotFoundError extends Error { }
  * This function fetches the total number of visits and submissions for all forms
  * created by the current user. It then calculates the submission rate and bounce rate
  * based on these statistics.
- *
+ * @async
+ * @function
  * @returns {Promise<{visits, submissions, submissionRate, bounceRate}>}
  * An object containing the total number of visits, submissions, submission rate, and bounce rate.
  *
