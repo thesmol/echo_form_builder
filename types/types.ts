@@ -1,7 +1,9 @@
 import { GetFormStats } from "@/actions/form";
+import { formSchemaType } from "@/schemas/form";
 import { ReactNode } from "react";
+import { UseFormReturn } from "react-hook-form";
 
-export interface StatsCardProps {
+export interface IStatsCardProps {
     title: string,
     icon: ReactNode,
     helperText: string,
@@ -10,18 +12,23 @@ export interface StatsCardProps {
     className: string
 }
 
-export interface StatsCardsProps {
+export interface IStatsCardsProps {
     data?: Awaited<ReturnType<typeof GetFormStats>>;
     loading: boolean;
 }
 
-export interface FormStats {
+export interface IFormStats {
     visits: number;
     submissions: number;
     submissionRate: number;
     bounceRate: number;
 }
 
-export interface User {
+export interface IUser {
     id: string;
+}
+
+export interface ICreationFormProps {
+    form: UseFormReturn<formSchemaType>;
+    onSubmit: (values: formSchemaType) => Promise<void>;
 }
