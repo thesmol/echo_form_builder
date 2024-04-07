@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import CardStatsWrapper, { StatsCards } from "@/components/CardStatsWrapper";
+import { Separator } from "@/components/ui/separator";
 
 export default function Home() {
   return (
@@ -9,6 +10,8 @@ export default function Home() {
       >
         <CardStatsWrapper />
       </Suspense>
+
+      <Separator className="my-6"/>
     </div>
   );
 }
