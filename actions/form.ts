@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import { formSchema, formSchemaType } from "@/schemas/form";
 import { IFormStats, IUser } from "@/types/types";
 import { currentUser } from "@clerk/nextjs";
+import { Form } from "@prisma/client";
 
 class UserNotFoundError extends Error { }
 
@@ -106,4 +107,29 @@ export async function CreateForm(data: formSchemaType): Promise<number> {
     }
 
     return form.id;
+}
+
+/**
+ * Retrieves all forms associated with the current user from the database.
+ * 
+ * This function fetches all forms created by the current user, ordered by their creation date in descending order.
+ * It uses the Prisma client to query the database and returns a promise that resolves to an array of `Form` objects.
+ * 
+ * @async
+ * @function
+ * @returns {Promise<Form[]>} A promise that resolves to an array of `Form` objects. The array can be empty if no forms are found for the current user.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ * @throws {Error} If an error occurs during the database query.
+ */
+export async function GetForms(): Promise<Form[]> {
+    const user: IUser = await getCurrentUser();
+
+    return await prisma.form.findMany({
+        where: {
+            userId: user.id
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
 }
