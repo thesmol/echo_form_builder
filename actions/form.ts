@@ -133,3 +133,28 @@ export async function GetForms(): Promise<Form[]> {
         }
     })
 }
+
+/**
+ * Retrieves a specific form by its ID from the database.
+ *
+ * This function fetches a form with the specified ID that is associated with the current user.
+ * It uses the Prisma client to query the database and returns a promise that resolves to a `Form` object.
+ * If no form is found with the given ID, it returns `null`.
+ *
+ * @async
+ * @function
+ * @param {number} id - The ID of the form to retrieve.
+ * @returns {Promise} A promise that resolves to the `Form` object if found, or `null` if not found.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ * @throws {Error} If an error occurs during the database query.
+ */
+export async function GetFormById(id: number): Promise<Form | null> {
+    const user: IUser = await getCurrentUser();
+
+    return await prisma.form.findUnique({
+        where: {
+            userId: user.id,
+            id
+        }
+    })
+}
