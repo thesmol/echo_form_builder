@@ -17,6 +17,11 @@ export default function Home() {
       <Separator className="my-6" />
       <div className="grid frid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <CreateFormBtn />
+        <Suspense
+          fallback = {[1, 2, 3, 4, 5].map(el => <FormCardsSkeleton key={el} />)}
+        >
+          <FormCards />
+        </Suspense>
       </div>
     </div>
   );
