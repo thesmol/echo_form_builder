@@ -1,7 +1,9 @@
-import { Suspense } from "react";
 import CardStatsWrapper, { StatsCards } from "@/components/CardStatsWrapper";
-import { Separator } from "@/components/ui/separator";
 import CreateFormBtn from "@/components/CreateFormBtn";
+import FormCards from "@/components/FormCards";
+import FormCardsSkeleton from "@/components/FormCardsSkeleton";
+import { Separator } from "@/components/ui/separator";
+import { Suspense } from "react";
 
 export default function Home() {
   return (
