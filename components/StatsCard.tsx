@@ -1,8 +1,8 @@
-import { StatsCardProps } from "@/types/types";
+import { IStatsCardProps } from "@/types/types";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Skeleton } from "./ui/skeleton";
 
-function StatsCard({ title, icon, helperText, value, loading, className }: StatsCardProps) {
+function StatsCard({ title, icon, helperText, value, loading, className }: IStatsCardProps) {
     return (
         <Card className={className}>
             <CardHeader className="flex flex-row items-center justify-between pb-2">

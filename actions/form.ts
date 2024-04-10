@@ -4,8 +4,26 @@ import prisma from "@/lib/prisma";
 import { formSchema, formSchemaType } from "@/schemas/form";
 import { IFormStats, IUser } from "@/types/types";
 import { currentUser } from "@clerk/nextjs";
+import { Form } from "@prisma/client";
 
 class UserNotFoundError extends Error { }
+
+/**
+ * Retrieves the current user from the authentication context.
+ * 
+ * This function is used to fetch the current user's information from the authentication context.
+ * It throws a `UserNotFoundError` if the user is not found or not authenticated.
+ * 
+ * @returns {Promise<IUser>} A promise that resolves to the current user's information.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ */
+export async function getCurrentUser(): Promise<IUser> {
+    const user: IUser | null = await currentUser();
+    if (!user) {
+        throw new UserNotFoundError();
+    }
+    return user;
+}
 
 /**
  * Retrieves and calculates statistics for forms created by the current user.
@@ -13,18 +31,17 @@ class UserNotFoundError extends Error { }
  * This function fetches the total number of visits and submissions for all forms
  * created by the current user. It then calculates the submission rate and bounce rate
  * based on these statistics.
+ * 
  * @async
  * @function
  * @returns {Promise<{visits, submissions, submissionRate, bounceRate}>}
  * An object containing the total number of visits, submissions, submission rate, and bounce rate.
- *
+ * 
  * @throws {UserNotFoundError} If the current user cannot be determined (e.g., not logged in).
+ * @throws {Error} If an error occurs during the retrieval of form statistics.
  */
 export async function GetFormStats(): Promise<IFormStats> {
-    const user: IUser | null = await currentUser();
-    if (!user) {
-        throw new UserNotFoundError();
-    }
+    const user: IUser = await getCurrentUser();
 
     const stats = await prisma.form.aggregate({
         where: {
@@ -62,6 +79,7 @@ export async function GetFormStats(): Promise<IFormStats> {
  * @function
  * @param {formSchemaType} data - The form data, including name and description.
  * @returns {Promise<number>} The ID of the created form.
+ * 
  * @throws {Error} If the form is filled out incorrectly.
  * @throws {UserNotFoundError} If the current user is not found.
  * @throws {Error} If an error occurs during form creation.
@@ -72,10 +90,7 @@ export async function CreateForm(data: formSchemaType): Promise<number> {
         throw new Error("Форма не прошла валидацию, данные заполнены некорректно");
     }
 
-    const user = await currentUser();
-    if (!user) {
-        throw new UserNotFoundError();
-    }
+    const user: IUser = await getCurrentUser();
 
     const { name, description } = data;
 
@@ -92,4 +107,29 @@ export async function CreateForm(data: formSchemaType): Promise<number> {
     }
 
     return form.id;
+}
+
+/**
+ * Retrieves all forms associated with the current user from the database.
+ * 
+ * This function fetches all forms created by the current user, ordered by their creation date in descending order.
+ * It uses the Prisma client to query the database and returns a promise that resolves to an array of `Form` objects.
+ * 
+ * @async
+ * @function
+ * @returns {Promise<Form[]>} A promise that resolves to an array of `Form` objects. The array can be empty if no forms are found for the current user.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ * @throws {Error} If an error occurs during the database query.
+ */
+export async function GetForms(): Promise<Form[]> {
+    const user: IUser = await getCurrentUser();
+
+    return await prisma.form.findMany({
+        where: {
+            userId: user.id
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    })
 }

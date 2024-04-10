@@ -19,8 +19,10 @@ import {
 import { toast } from './ui/use-toast';
 import { CreateForm } from '@/actions/form';
 import CreationForm from './CreationForm';
+import { useRouter } from 'next/navigation';
 
 function CreateFormBtn() {
+    const router = useRouter();
     const form = useForm<formSchemaType>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -36,7 +38,8 @@ function CreateFormBtn() {
                 title: "Успех",
                 description: "Форма успешно создана",
             });
-            console.log("FORM ID: ", formId);
+            router.push(`/builder/${formId}`);
+
         } catch (error) {
             toast({
                 title: "Ошибка",
