@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { BiRightArrowAlt } from 'react-icons/bi';
 import { FaEdit, FaWpforms } from 'react-icons/fa';
 import { LuView } from 'react-icons/lu';
-import { Badge } from './ui/badge';
-import { Button } from './ui/button';
+import { Badge } from '../ui/badge';
+import { Button } from '../ui/button';
 import {
     Card,
     CardContent,
@@ -14,7 +14,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle
-} from './ui/card';
+} from '../ui/card';
 
 function FormCard({ form }: { form: Form }) {
     return (

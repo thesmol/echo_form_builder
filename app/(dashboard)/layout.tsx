@@ -1,5 +1,5 @@
-import Logo from '@/components/Logo'
-import ThemeSwitcher from '@/components/ThemeSwitcher'
+import Logo from '@/components/navbar/Logo'
+import ThemeSwitcher from '@/components/navbar/ThemeSwitcher'
 import { UserButton } from '@clerk/nextjs'
 import React, { ReactNode } from 'react'
 

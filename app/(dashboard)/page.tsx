@@ -1,7 +1,7 @@
-import CardStatsWrapper, { StatsCards } from "@/components/CardStatsWrapper";
-import CreateFormBtn from "@/components/CreateFormBtn";
-import FormCards from "@/components/FormCards";
-import FormCardsSkeleton from "@/components/FormCardsSkeleton";
+import CardStatsWrapper, { StatsCards } from "@/components/statsCards/CardStatsWrapper";
+import CreateFormBtn from "@/components/formCards/CreateFormBtn";
+import FormCards from "@/components/formCards/FormCards";
+import FormCardsSkeleton from "@/components/formCards/FormCardsSkeleton";
 import { Separator } from "@/components/ui/separator";
 import { Suspense } from "react";
 

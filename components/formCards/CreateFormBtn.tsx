@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from 'react-hook-form';
 import { ImSpinner2 } from "react-icons/im";
 import { BsFileEarmarkPlus } from "react-icons/bs";
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import {
     Dialog,
     DialogContent,
@@ -14,9 +14,9 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger
-} from "./ui/dialog";
+} from "../ui/dialog";
 
-import { toast } from './ui/use-toast';
+import { toast } from '../ui/use-toast';
 import { CreateForm } from '@/actions/form';
 import CreationForm from './CreationForm';
 import { useRouter } from 'next/navigation';
