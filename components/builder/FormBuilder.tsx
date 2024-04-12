@@ -7,8 +7,12 @@ import {
     SaveFormBtn,
     PublishFormBtn
 } from '../builderNavButtons/builderButtons'
+import { DndContext } from '@dnd-kit/core'
+import DragOverlayWrapper from './DragOverlayWrapper'
+
 function FormBuilder({ form }: { form: Form }) {
     return (
+        <DndContext>
             <main className='flex flex-col w-full'>
                 <nav className="flex justify-between items-center border-b-2 p-4 gap-3">
                     <h2 className='truncate font-medium'>
@@ -26,6 +30,9 @@ function FormBuilder({ form }: { form: Form }) {
                     </div>
                 </nav>
             </main>
+            <DragOverlayWrapper />
+        </DndContext>
+    )
 }
 
 export default FormBuilder
