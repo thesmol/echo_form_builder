@@ -1,9 +1,16 @@
-import { GetForms } from '@/actions/form';
-import React from 'react'
-import FormCard from './FormCard';
+"use client"
 
-async function FormCards() {
-    const forms = await GetForms();
+import React, { useContext } from 'react'
+import FormCard from './FormCard';
+import { FormContext } from '../providers/FormProvider';
+
+function FormCards() {
+    const context = useContext(FormContext);
+    if (!context) {
+        throw new Error('FormCards must be used within a FormProvider');
+    }
+
+    const { forms } = context;
 
     return (
         <>
