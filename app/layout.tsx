@@ -5,6 +5,7 @@ import "./globals.css";
 import { ruRU } from "@clerk/localizations";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { FormProvider } from "@/components/providers/FormProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,20 +21,22 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider localization={ruRU}>
-      <html lang="ru" suppressHydrationWarning>
-        <head />
-        <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster/>
-          </ThemeProvider>
-        </body>
-      </html>
+      <FormProvider>
+        <html lang="ru" suppressHydrationWarning>
+          <head />
+          <body className={inter.className}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </body>
+        </html>
+      </FormProvider>
     </ClerkProvider>
   );
 }

@@ -6,9 +6,9 @@ import {
     FormItem,
     FormLabel,
     FormMessage
-} from "./ui/form";
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
+} from "../ui/form";
+import { Input } from '../ui/input';
+import { Textarea } from '../ui/textarea';
  
 const CreationForm: React.FC<ICreationFormProps> = ({ form, onSubmit }) => {
     return (

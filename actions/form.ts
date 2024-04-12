@@ -84,7 +84,7 @@ export async function GetFormStats(): Promise<IFormStats> {
  * @throws {UserNotFoundError} If the current user is not found.
  * @throws {Error} If an error occurs during form creation.
  */
-export async function CreateForm(data: formSchemaType): Promise<number> {
+export async function CreateForm(data: formSchemaType): Promise<Form> {
     const validation = formSchema.safeParse(data);
     if (!validation.success) {
         throw new Error("Форма не прошла валидацию, данные заполнены некорректно");
@@ -106,7 +106,7 @@ export async function CreateForm(data: formSchemaType): Promise<number> {
         throw new Error("Во время создания формы что-то пошло не так");
     }
 
-    return form.id;
+    return form;
 }
 
 /**
@@ -130,6 +130,31 @@ export async function GetForms(): Promise<Form[]> {
         },
         orderBy: {
             createdAt: "desc"
+        }
+    })
+}
+
+/**
+ * Retrieves a specific form by its ID from the database.
+ *
+ * This function fetches a form with the specified ID that is associated with the current user.
+ * It uses the Prisma client to query the database and returns a promise that resolves to a `Form` object.
+ * If no form is found with the given ID, it returns `null`.
+ *
+ * @async
+ * @function
+ * @param {number} id - The ID of the form to retrieve.
+ * @returns {Promise} A promise that resolves to the `Form` object if found, or `null` if not found.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ * @throws {Error} If an error occurs during the database query.
+ */
+export async function GetFormById(id: number): Promise<Form | null> {
+    const user: IUser = await getCurrentUser();
+
+    return await prisma.form.findUnique({
+        where: {
+            userId: user.id,
+            id
         }
     })
 }

@@ -1,5 +1,5 @@
-import Logo from '@/components/Logo'
-import ThemeSwitcher from '@/components/ThemeSwitcher'
+import Logo from '@/components/navbar/Logo'
+import ThemeSwitcher from '@/components/navbar/ThemeSwitcher'
 import { UserButton } from '@clerk/nextjs'
 import React, { ReactNode } from 'react'
 
@@ -13,7 +13,7 @@ function Layout({ children }: { children: ReactNode }) {
                     <UserButton afterSignOutUrl='/sign-in' />
                 </div>
             </nav>
-            <main className='flex w-full flex-grow overflow-y-auto mb-5'>{children}</main>
+            <main className='flex w-full flex-grow overflow-y-auto'>{children}</main>
         </div>
     )
 }

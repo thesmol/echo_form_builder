@@ -1,6 +1,6 @@
 import { IStatsCardProps } from "@/types/types";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
-import { Skeleton } from "./ui/skeleton";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Skeleton } from "../ui/skeleton";
 
 function StatsCard({ title, icon, helperText, value, loading, className }: IStatsCardProps) {
     return (
