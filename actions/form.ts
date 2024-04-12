@@ -84,7 +84,7 @@ export async function GetFormStats(): Promise<IFormStats> {
  * @throws {UserNotFoundError} If the current user is not found.
  * @throws {Error} If an error occurs during form creation.
  */
-export async function CreateForm(data: formSchemaType): Promise<number> {
+export async function CreateForm(data: formSchemaType): Promise<Form> {
     const validation = formSchema.safeParse(data);
     if (!validation.success) {
         throw new Error("Форма не прошла валидацию, данные заполнены некорректно");
@@ -106,7 +106,7 @@ export async function CreateForm(data: formSchemaType): Promise<number> {
         throw new Error("Во время создания формы что-то пошло не так");
     }
 
-    return form.id;
+    return form;
 }
 
 /**
