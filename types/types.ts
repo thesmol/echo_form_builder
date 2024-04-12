@@ -38,7 +38,7 @@ export type ElementsType = "TextField";
 export type FormElement = {
     type: ElementsType;
 
-    construct: (id: string) => FormElementIstance;
+    construct: (id: string) => FormElementInstance;
 
     designerBtnElement: {
         icon: React.ElementType;
@@ -50,7 +50,7 @@ export type FormElement = {
     propertiesComponent: React.FC;
 };
 
-export type FormElementIstance = {
+export type FormElementInstance = {
     id: string;
     type: ElementsType;
     extraAttributes?: Record<string, any>;
