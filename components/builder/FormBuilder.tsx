@@ -7,6 +7,7 @@ import {
     SaveFormBtn,
     PublishFormBtn
 } from '../builderNavButtons/builderButtons'
+import Designer from './Designer'
 import { DndContext } from '@dnd-kit/core'
 import DragOverlayWrapper from './DragOverlayWrapper'
 
@@ -29,6 +30,9 @@ function FormBuilder({ form }: { form: Form }) {
                         )}
                     </div>
                 </nav>
+                <div className="flex w-full flex-grow items-center justify-center relative overflow-y-auto h-[200px] bg-accent bg-[url(/paper.svg)] dark:bg-[url(/paper-dark.svg)]">
+                    <Designer />
+                </div>
             </main>
             <DragOverlayWrapper />
         </DndContext>
