@@ -20,6 +20,8 @@ import { toast } from '../ui/use-toast';
 import { CreateForm } from '@/actions/form';
 import CreationForm from './CreationForm';
 import { useRouter } from 'next/navigation';
+import { useContext } from 'react';
+import { FormContext } from '../providers/FormProvider';
 
 function CreateFormBtn() {
     const router = useRouter();
@@ -31,9 +33,19 @@ function CreateFormBtn() {
         }
     });
 
+    const context = useContext(FormContext);
+    if (!context) {
+        throw new Error('CreateFormBtn must be used within a FormProvider');
+    }
+
+    const { setForms } = context;
+
     async function onSubmit(values: formSchemaType) {
         try {
-            const formId = await CreateForm(values);
+            const newForm = await CreateForm(values);
+            const formId = newForm.id;
+            setForms(prevForms => [ newForm, ...prevForms]);
+
             toast({
                 title: "Успех",
                 description: "Форма успешно создана",
