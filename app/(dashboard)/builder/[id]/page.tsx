@@ -1,5 +1,6 @@
 import { GetFormById } from '@/actions/form';
 import FormBuilder from '@/components/builder/FormBuilder';
+import DesignerProvider from '@/components/providers/DesignerProvider';
 import React from 'react'
 
 async function BuilderPage({ params }: {
@@ -15,7 +16,10 @@ async function BuilderPage({ params }: {
     }
 
     return (
-        <FormBuilder form={form}/>
+        <DesignerProvider>
+            <FormBuilder form={form} />
+        </DesignerProvider>
+
     )
 }
 
