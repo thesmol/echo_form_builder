@@ -45,7 +45,9 @@ export type FormElement = {
         label: string;
     }
 
-    designerComponent: React.FC;
+    designerComponent: React.FC<{
+        elementInstance: FormElementInstance;
+    }>;
     formComponent: React.FC;
     propertiesComponent: React.FC;
 };
@@ -58,4 +60,10 @@ export type FormElementInstance = {
 
 export type FormElementsType = {
     [key in ElementsType]: FormElement
+}
+
+export type DesignerContextType = {
+    elements: FormElementInstance[];
+    addElement: (index: number, element: FormElementInstance) => void;
+    removeElement: (id: string) => void;
 }
