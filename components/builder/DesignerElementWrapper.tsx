@@ -1,7 +1,7 @@
 import { FormElementInstance } from '@/types/types'
 import React, { useState } from 'react'
 import { FormElements } from './FormElements'
-import { useDraggable, useDroppable } from '@dnd-kit/core'
+import { useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core'
 import { Button } from '../ui/button'
 import { BiSolidTrashAlt } from 'react-icons/bi'
 import useDesigner from '@/hooks/useDesigner'
@@ -13,6 +13,12 @@ function DesignerElementWrapper({ element }: {
     const { removeElement } = useDesigner();
 
     const [mouseIsOver, setMouseIsOver] = useState<boolean>(false);
+
+    useDndMonitor({
+        onDragStart: () => {
+            setMouseIsOver(false);
+        }
+    })
 
     const topHalf = useDroppable({
         id: element.id + "-top",
