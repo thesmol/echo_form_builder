@@ -26,13 +26,13 @@ These instructions will help you set up the project on your local machine for de
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/echo-form-builder.git
+git clone https://github.com/thesmol/echo_form_builder.git
 ```
 
 2. Install dependencies:
 
 ```bash
-cd echo-form-builder
+cd echo_form_builder
 npm install
 ```
 
