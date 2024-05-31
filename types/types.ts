@@ -49,7 +49,9 @@ export type FormElement = {
         elementInstance: FormElementInstance;
     }>;
     formComponent: React.FC;
-    propertiesComponent: React.FC;
+    propertiesComponent: React.FC<{
+        elementInstance: FormElementInstance;
+    }>;
 };
 
 export type FormElementInstance = {
@@ -66,4 +68,8 @@ export type DesignerContextType = {
     elements: FormElementInstance[];
     addElement: (index: number, element: FormElementInstance) => void;
     removeElement: (id: string) => void;
+    updateElement: (id: string, element: FormElementInstance) => void;
+
+    selectedElement: FormElementInstance | null;
+    setSelectedElement: React.Dispatch<React.SetStateAction<FormElementInstance | null>>
 }
