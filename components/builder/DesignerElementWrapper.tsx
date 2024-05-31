@@ -10,10 +10,15 @@ import { cn } from '@/lib/utils'
 function DesignerElementWrapper({ element }: {
     element: FormElementInstance
 }) {
-    const { removeElement } = useDesigner();
+    const {
+        removeElement,
+        selectedElement,
+        setSelectedElement
+    } = useDesigner();
 
     const [mouseIsOver, setMouseIsOver] = useState<boolean>(false);
 
+    // prevent double hover effects
     useDndMonitor({
         onDragStart: () => {
             setMouseIsOver(false);
@@ -59,6 +64,10 @@ function DesignerElementWrapper({ element }: {
             onMouseLeave={() => {
                 setMouseIsOver(false)
             }}
+            onClick={(event)=>{
+                event.stopPropagation();
+                setSelectedElement(element)
+            }}
             ref={draggable.setNodeRef}
             {...draggable.listeners}
             {...draggable.attributes}
@@ -91,7 +100,8 @@ function DesignerElementWrapper({ element }: {
                         <Button
                             className='flex justify-center h-full border rounded-md rounded-l-none bg-red-500'
                             variant={"outline"}
-                            onClick={() => {
+                            onClick={(event) => {
+                                event.stopPropagation(); // avoid selection of element while deleting
                                 removeElement(element.id);
                             }}
                         >
