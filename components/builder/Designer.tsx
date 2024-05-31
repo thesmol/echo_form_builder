@@ -11,7 +11,12 @@ import { idGenerator } from '@/lib/idGenerator'
 import DesignerElementWrapper from './DesignerElementWrapper'
 
 function Designer() {
-    const { elements, addElement } = useDesigner();
+    const {
+        elements,
+        addElement,
+        selectedElement,
+        setSelectedElement
+    } = useDesigner();
 
     const droppable = useDroppable({
         id: "designer-drop-area",
@@ -41,7 +46,10 @@ function Designer() {
 
     return (
         <div className='flex w-full h-full'>
-            <div className="p-4 w-full">
+            <div className="p-4 w-full"
+            onClick={()=>{
+                if(selectedElement) setSelectedElement(null);
+            }}>
                 <div
                     ref={droppable.setNodeRef}
                     className={cn("bg-background max-w-[920px] h-full m-auto rounded-xl flex flex-col flex-grow items-center justify-start flex-1 overflow-y-auto",
