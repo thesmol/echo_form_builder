@@ -1,7 +1,7 @@
 import { FormElementInstance } from '@/types/types'
 import React, { useState } from 'react'
 import { FormElements } from './FormElements'
-import { useDraggable, useDroppable } from '@dnd-kit/core'
+import { useDndMonitor, useDraggable, useDroppable } from '@dnd-kit/core'
 import { Button } from '../ui/button'
 import { BiSolidTrashAlt } from 'react-icons/bi'
 import useDesigner from '@/hooks/useDesigner'
@@ -10,9 +10,20 @@ import { cn } from '@/lib/utils'
 function DesignerElementWrapper({ element }: {
     element: FormElementInstance
 }) {
-    const { removeElement } = useDesigner();
+    const {
+        removeElement,
+        selectedElement,
+        setSelectedElement
+    } = useDesigner();
 
     const [mouseIsOver, setMouseIsOver] = useState<boolean>(false);
+
+    // prevent double hover effects
+    useDndMonitor({
+        onDragStart: () => {
+            setMouseIsOver(false);
+        }
+    })
 
     const topHalf = useDroppable({
         id: element.id + "-top",
@@ -53,6 +64,10 @@ function DesignerElementWrapper({ element }: {
             onMouseLeave={() => {
                 setMouseIsOver(false)
             }}
+            onClick={(event)=>{
+                event.stopPropagation();
+                setSelectedElement(element)
+            }}
             ref={draggable.setNodeRef}
             {...draggable.listeners}
             {...draggable.attributes}
@@ -85,7 +100,8 @@ function DesignerElementWrapper({ element }: {
                         <Button
                             className='flex justify-center h-full border rounded-md rounded-l-none bg-red-500'
                             variant={"outline"}
-                            onClick={() => {
+                            onClick={(event) => {
+                                event.stopPropagation(); // avoid selection of element while deleting
                                 removeElement(element.id);
                             }}
                         >

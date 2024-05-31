@@ -1,27 +1,16 @@
-"use client"
-
-import React, { useContext } from 'react'
+import React from 'react'
 import FormCard from './FormCard';
-import { FormContext } from '../providers/FormProvider';
+import { GetForms } from '@/actions/form';
 
-function FormCards() {
-    const context = useContext(FormContext);
-    if (!context) {
-        throw new Error('FormCards must be used within a FormProvider');
-    }
-
-    const { forms } = context;
-
+async function FormCards() {
+    const forms = await GetForms();
     return (
-        <>
-            {forms.map(form => (
-                <FormCard 
-                    key = {form.id}
-                    form = {form}
-                />
-            ))}
-        </>
-    )
-}
+      <>
+        {forms.map((form) => (
+          <FormCard key={form.id} form={form} />
+        ))}
+      </>
+    );
+  }
 
 export default FormCards
