@@ -35,10 +35,11 @@ function DesignerProvider({ children }: {
     return (
         <DesignerContext.Provider value={{
             elements,
+            setElements,
             addElement,
             removeElement,
             updateElement,
-
+            
             selectedElement,
             setSelectedElement
         }}>
