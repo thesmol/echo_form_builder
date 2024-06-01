@@ -78,7 +78,7 @@ export async function GetFormStats(): Promise<IFormStats> {
  * @async
  * @function
  * @param {formSchemaType} data - The form data, including name and description.
- * @returns {Promise<number>} The ID of the created form.
+ * @returns {Promise<Form>} The created form.
  * 
  * @throws {Error} If the form is filled out incorrectly.
  * @throws {UserNotFoundError} If the current user is not found.
@@ -155,6 +155,61 @@ export async function GetFormById(id: number): Promise<Form | null> {
         where: {
             userId: user.id,
             id
+        }
+    })
+}
+
+
+/**
+ * Updates the content of a form identified by its ID.
+ *
+ * This function updates the content of a form in the database. It requires the form's ID and the new content as input. The content is expected to be a JSON string.
+ *
+ * @param {number} id - The unique identifier of the form whose content needs to be updated.
+ * @param {string} jsonContent - The new content for the form, provided as a JSON string.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ */
+export async function UpdateFormContent(
+    id: number,
+    jsonContent: string
+) {
+    const user: IUser = await getCurrentUser();
+
+    return await prisma.form.update({
+        where: {
+            userId: user.id,
+            id
+        },
+        data: {
+            content: jsonContent
+        }
+    })
+}
+
+
+/**
+ * Marks a form as published.
+ *
+ * This function updates the status of a form in the database to indicate that it has been published.
+ * It requires the ID of the form to identify which form should be updated.
+ *
+ * @async
+ * @function
+ * @param {number} id - The unique identifier of the form to publish.
+ * @returns {Promise<void>} A promise that resolves when the form has been successfully marked as published.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ * @throws {Error} If an error occurs during the database operation.
+ */
+export async function PublishForm(id: number) {
+    const user: IUser = await getCurrentUser();
+
+    return await prisma.form.update({
+        where: {
+            userId: user.id,
+            id
+        },
+        data: {
+            published: true
         }
     })
 }
