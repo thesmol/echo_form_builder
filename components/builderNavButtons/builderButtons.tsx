@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useTransition } from 'react';
 import { Button } from '../ui/button';
 import { MdPreview } from 'react-icons/md';
 import { HiSaveAs } from 'react-icons/hi';
@@ -6,6 +6,9 @@ import { MdOutlinePublish } from 'react-icons/md';
 import useDesigner from '@/hooks/useDesigner';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import { FormElements } from '../builder/FormElements';
+import { UpdateFormContent } from '@/actions/form';
+import { toast } from '../ui/use-toast';
+import { ImSpinner10 } from 'react-icons/im';
 
 export function PreviewDialogBtn() {
     const { elements } = useDesigner();
@@ -39,11 +42,39 @@ export function PreviewDialogBtn() {
     )
 }
 
-export function SaveFormBtn() {
+export function SaveFormBtn({ id }: { id: number }) {
+    const { elements } = useDesigner();
+    const [loading, startTransition] = useTransition();
+
+    const updateFormContent = async () => {
+        try {
+            const JsonElements = JSON.stringify(elements);
+            await UpdateFormContent(id, JsonElements);
+            toast({
+                title: "Успех",
+                description: "Форма была успешно сохранена!"
+            })
+        } catch (error) {
+            toast({
+                title: "Ошибка",
+                description: "Что-то пошло не так, форма не была сохранена(",
+                variant: "destructive"
+            })
+        }
+    }
+
     return (
-        <Button variant={"outline"} className='gap-2'>
+        <Button
+            variant={"outline"}
+            className='relative gap-2'
+            disabled={loading}
+            onClick={() => startTransition(updateFormContent)}
+        >
             <HiSaveAs className='h-4 w-4' />
-            Сохранить
+            <p className={`${loading ? "opacity-0" : ""}`}>Сохранить</p>
+            {loading && (
+                <ImSpinner10 className='absolute left-1/2 animate-spin m-auto' />
+            )}
         </Button>
     )
 }
