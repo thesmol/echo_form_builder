@@ -78,7 +78,7 @@ export async function GetFormStats(): Promise<IFormStats> {
  * @async
  * @function
  * @param {formSchemaType} data - The form data, including name and description.
- * @returns {Promise<number>} The ID of the created form.
+ * @returns {Promise<Form>} The created form.
  * 
  * @throws {Error} If the form is filled out incorrectly.
  * @throws {UserNotFoundError} If the current user is not found.
@@ -167,13 +167,12 @@ export async function GetFormById(id: number): Promise<Form | null> {
  *
  * @param {number} id - The unique identifier of the form whose content needs to be updated.
  * @param {string} jsonContent - The new content for the form, provided as a JSON string.
- * @returns {Promise<Form | null>} A promise that resolves to the updated form object if successful, or null if the form was not found or another error occurred.
  * @throws {UserNotFoundError} If the current user is not found or not authenticated.
  */
 export async function UpdateFormContent(
     id: number,
     jsonContent: string
-): Promise<Form | null> {
+) {
     const user: IUser = await getCurrentUser();
 
     return await prisma.form.update({
