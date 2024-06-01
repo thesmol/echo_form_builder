@@ -185,3 +185,31 @@ export async function UpdateFormContent(
         }
     })
 }
+
+
+/**
+ * Marks a form as published.
+ *
+ * This function updates the status of a form in the database to indicate that it has been published.
+ * It requires the ID of the form to identify which form should be updated.
+ *
+ * @async
+ * @function
+ * @param {number} id - The unique identifier of the form to publish.
+ * @returns {Promise<void>} A promise that resolves when the form has been successfully marked as published.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ * @throws {Error} If an error occurs during the database operation.
+ */
+export async function PublishForm(id: number) {
+    const user: IUser = await getCurrentUser();
+
+    return await prisma.form.update({
+        where: {
+            userId: user.id,
+            id
+        },
+        data: {
+            published: true
+        }
+    })
+}
