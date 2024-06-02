@@ -242,3 +242,34 @@ export async function GetFormWithSubmissions(id: number) {
         }
     })
 }
+
+/**
+ * Fetches the content of a form by its shared URL and increments the visit count.
+ *
+ * This function searches for a form in the database that matches the provided `shareURL`.
+ * If found, it retrieves the form's content and increments the `visits` field by 1.
+ * This is useful for tracking how many times a form has been accessed through its public URL.
+ *
+ * @async
+ * @function
+ * @param formUrl - The shared URL of the form to fetch and update.
+ * @returns A promise that resolves to the content of the form as a string.
+ * @throws If an error occurs while querying the database.
+ */
+export async function GetFormContentByUrl(formUrl: string) {
+
+    return await prisma.form.update({
+        select: {
+            content: true,
+        },
+        data: {
+            visits: {
+                increment: 1,
+            }
+        },
+        where: {
+            shareURL: formUrl,
+        }
+    })
+}
+}
