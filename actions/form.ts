@@ -195,10 +195,10 @@ export async function UpdateFormContent(
  *
  * @async
  * @function
- * @param {number} id - The unique identifier of the form to publish.
- * @returns {Promise<void>} A promise that resolves when the form has been successfully marked as published.
- * @throws {UserNotFoundError} If the current user is not found or not authenticated.
- * @throws {Error} If an error occurs during the database operation.
+ * @param id - The unique identifier of the form to publish.
+ * @returns A promise that resolves when the form has been successfully marked as published.
+ * @throws If the current user is not found or not authenticated.
+ * @throws If an error occurs during the database operation.
  */
 export async function PublishForm(id: number) {
     const user: IUser = await getCurrentUser();
@@ -223,11 +223,11 @@ export async function PublishForm(id: number) {
  *
  * @async
  * @function
- * @param {number} id - The ID of the form to retrieve along with its submissions.
- * @returns {Promise<Form & { FormSubmissions: FormSubmission[] } | null>} A promise that resolves
+ * @param id - The ID of the form to retrieve along with its submissions.
+ * @returns A promise that resolves
  * to the `Form` object with its submissions if found, or `null` if not found.
- * @throws {UserNotFoundError} If the current user is not found or not authenticated.
- * @throws {Error} If an error occurs during the database query.
+ * @throws If the current user is not found or not authenticated.
+ * @throws If an error occurs during the database query.
  */
 export async function GetFormWithSubmissions(id: number) {
     const user: IUser = await getCurrentUser();
