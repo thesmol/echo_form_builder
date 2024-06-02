@@ -272,4 +272,33 @@ export async function GetFormContentByUrl(formUrl: string) {
         }
     })
 }
+
+/**
+ * Submits a form by updating its record in the database and creating a new submission entry.
+ *
+ * This function is designed to handle the submission of a form identified by its shared URL (`formUrl`). It increments the form's submission count and creates a new submission record with the provided JSON content (`jsonContent`). This is useful for tracking each submission made to a form.
+ *
+ * @async
+ * @function SubmitForm
+ * @param formUrl - The shared URL of the form to submit. This must match exactly with one of the existing form records in the database.
+ * @param jsonContent - The JSON content representing the submitted form data. This should be a serialized JSON string.
+ * @returns A promise that resolves once the form submission has been processed. Note that this function does not return the newly created submission record directly but updates the form record instead.
+ * @throws If an error occurs while querying the database, such as issues connecting to the database or errors returned by Prisma.
+ */
+export async function SubmitForm(formUrl: string, jsonContent: string) {
+    return await prisma.form.update({
+        data: {
+            submissions: {
+                increment: 1,
+            },
+            FormSubmissions: {
+                create: {
+                    content: jsonContent,
+                }
+            }
+        },
+        where: {
+            shareURL: formUrl,
+        }
+    })
 }
