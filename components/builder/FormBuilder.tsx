@@ -67,7 +67,7 @@ function FormBuilder({ form }: { form: Form }) {
                     numberOfPieces={1000}
                 />
                 <div className="flex flex-col items-center justify-center h-full w-full">
-                    <div className='border-[1px] rounded-xl p-10 m-10 shadow-2xl max-w-min'>
+                    <div className='border-[1px] rounded-xl p-10 m-10 shadow-2xl shadow-green-700 max-w-min'>
                         <h1 className="text-center text-2xl font-bold text-primary border-b pb-2 mb-10 text-nowrap">
                             🎊🎊Форма опубликована🎊🎊
                         </h1>
