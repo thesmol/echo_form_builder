@@ -3,6 +3,7 @@ import { Column, ElementsType, FormElementInstance, Row } from '@/types/types';
 import React, { ReactNode } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { formatDistance } from 'date-fns';
+import { ru } from 'date-fns/locale';
 
 async function SubmissionsTable({ id }: { id: number }) {
     const form = await GetFormWithSubmissions(id);
@@ -51,7 +52,7 @@ async function SubmissionsTable({ id }: { id: number }) {
                                 </TableHead>
                             ))}
                             <TableHead className='text-muted-forefround text-right uppercase'>
-                                Заполнено в
+                                Заполнено
                             </TableHead>
                         </TableRow>
                     </TableHeader>
@@ -68,6 +69,7 @@ async function SubmissionsTable({ id }: { id: number }) {
                                 <TableCell className='text-muted-foreground text-right'>
                                     {formatDistance(row.submittedAt, new Date(), {
                                         addSuffix: true,
+                                        locale: ru,
                                     })}
                                 </TableCell>
                             </TableRow>
