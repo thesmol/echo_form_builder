@@ -153,8 +153,10 @@ function PropertiesComponent({ elementInstance }: {
                                 Заголовок
                             </FormLabel>
                             <FormControl>
-                                <Input {...field}
-                                    onKeyDown={e => {
+                                <Input
+                                    {...field}
+                                    onFocus={(e) => e.target.select()}
+                                    onKeyDown={(e) => {
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
@@ -175,8 +177,10 @@ function PropertiesComponent({ elementInstance }: {
                                 Замещающий текст
                             </FormLabel>
                             <FormControl>
-                                <Input {...field}
-                                    onKeyDown={e => {
+                                <Input
+                                    {...field}
+                                    onFocus={(e) => e.target.select()}
+                                    onKeyDown={(e) => {
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
@@ -197,8 +201,10 @@ function PropertiesComponent({ elementInstance }: {
                                 Подсказка
                             </FormLabel>
                             <FormControl>
-                                <Input {...field}
-                                    onKeyDown={e => {
+                                <Input
+                                    {...field}
+                                    onFocus={(e) => e.target.select()}
+                                    onKeyDown={(e) => {
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
