@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import useDesigner from "@/hooks/useDesigner";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Switch } from "../ui/switch";
+import { Textarea } from "../ui/textarea";
 
 const type: ElementsType = "TextField";
 
@@ -201,7 +202,7 @@ function PropertiesComponent({ elementInstance }: {
                                 Подсказка
                             </FormLabel>
                             <FormControl>
-                                <Input
+                                <Textarea
                                     {...field}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
