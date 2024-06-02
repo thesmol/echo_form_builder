@@ -187,7 +187,7 @@ function PropertiesComponent({ elementInstance }: {
                                 />
                             </FormControl>
                             <FormDescription>
-                                Текст, <br /> который будет отображен внутри поля
+                                Текст, который будет<br />отображен внутри поля
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -211,7 +211,7 @@ function PropertiesComponent({ elementInstance }: {
                                 />
                             </FormControl>
                             <FormDescription>
-                                Подсказка поля, <br /> которое будет отображено ниже поля
+                                Текст, который будет, <br /> отображен ниже поля
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
