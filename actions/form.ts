@@ -213,3 +213,32 @@ export async function PublishForm(id: number) {
         }
     })
 }
+
+/**
+ * Retrieves a specific form along with its submissions by its ID.
+ *
+ * This function fetches a form with the specified ID that is associated with the current user,
+ * including all related submissions. It uses the Prisma client to query the database and returns
+ * a promise that resolves to a `Form` object with included `FormSubmissions`.
+ *
+ * @async
+ * @function
+ * @param {number} id - The ID of the form to retrieve along with its submissions.
+ * @returns {Promise<Form & { FormSubmissions: FormSubmission[] } | null>} A promise that resolves
+ * to the `Form` object with its submissions if found, or `null` if not found.
+ * @throws {UserNotFoundError} If the current user is not found or not authenticated.
+ * @throws {Error} If an error occurs during the database query.
+ */
+export async function GetFormWithSubmissions(id: number) {
+    const user: IUser = await getCurrentUser();
+
+    return await prisma.form.findUnique({
+        where: {
+            userId: user.id,
+            id
+        },
+        include: {
+            FormSubmissions: true
+        }
+    })
+}

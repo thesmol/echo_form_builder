@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import useDesigner from "@/hooks/useDesigner";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Switch } from "../ui/switch";
+import { Textarea } from "../ui/textarea";
 
 const type: ElementsType = "TextField";
 
@@ -153,8 +154,10 @@ function PropertiesComponent({ elementInstance }: {
                                 Заголовок
                             </FormLabel>
                             <FormControl>
-                                <Input {...field}
-                                    onKeyDown={e => {
+                                <Input
+                                    {...field}
+                                    onFocus={(e) => e.target.select()}
+                                    onKeyDown={(e) => {
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
@@ -175,14 +178,16 @@ function PropertiesComponent({ elementInstance }: {
                                 Замещающий текст
                             </FormLabel>
                             <FormControl>
-                                <Input {...field}
-                                    onKeyDown={e => {
+                                <Input
+                                    {...field}
+                                    onFocus={(e) => e.target.select()}
+                                    onKeyDown={(e) => {
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
                             </FormControl>
                             <FormDescription>
-                                Текст, <br /> который будет отображен внутри поля
+                                Текст, который будет<br />отображен внутри поля
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -197,14 +202,16 @@ function PropertiesComponent({ elementInstance }: {
                                 Подсказка
                             </FormLabel>
                             <FormControl>
-                                <Input {...field}
-                                    onKeyDown={e => {
+                                <Textarea
+                                    {...field}
+                                    onFocus={(e) => e.target.select()}
+                                    onKeyDown={(e) => {
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
                             </FormControl>
                             <FormDescription>
-                                Подсказка поля, <br /> которое будет отображено ниже поля
+                                Текст, который будет, <br /> отображен ниже поля
                             </FormDescription>
                             <FormMessage />
                         </FormItem>

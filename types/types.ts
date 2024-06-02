@@ -71,9 +71,22 @@ export type DesignerContextType = {
     addElement: (index: number, element: FormElementInstance) => void;
     removeElement: (id: string) => void;
     updateElement: (id: string, element: FormElementInstance) => void;
-    
+
     setElements: React.Dispatch<React.SetStateAction<FormElementInstance[]>>;
 
     selectedElement: FormElementInstance | null;
     setSelectedElement: React.Dispatch<React.SetStateAction<FormElementInstance | null>>
+}
+
+export type Column = {
+    id: string,
+    label: string,
+    required: boolean,
+    type: ElementsType
+}
+
+export type Row = {
+    [key: string]: string,
+} & {
+    submittedAt: Date
 }
