@@ -195,10 +195,10 @@ export async function UpdateFormContent(
  *
  * @async
  * @function
- * @param {number} id - The unique identifier of the form to publish.
- * @returns {Promise<void>} A promise that resolves when the form has been successfully marked as published.
- * @throws {UserNotFoundError} If the current user is not found or not authenticated.
- * @throws {Error} If an error occurs during the database operation.
+ * @param id - The unique identifier of the form to publish.
+ * @returns A promise that resolves when the form has been successfully marked as published.
+ * @throws If the current user is not found or not authenticated.
+ * @throws If an error occurs during the database operation.
  */
 export async function PublishForm(id: number) {
     const user: IUser = await getCurrentUser();
@@ -223,11 +223,11 @@ export async function PublishForm(id: number) {
  *
  * @async
  * @function
- * @param {number} id - The ID of the form to retrieve along with its submissions.
- * @returns {Promise<Form & { FormSubmissions: FormSubmission[] } | null>} A promise that resolves
+ * @param id - The ID of the form to retrieve along with its submissions.
+ * @returns A promise that resolves
  * to the `Form` object with its submissions if found, or `null` if not found.
- * @throws {UserNotFoundError} If the current user is not found or not authenticated.
- * @throws {Error} If an error occurs during the database query.
+ * @throws If the current user is not found or not authenticated.
+ * @throws If an error occurs during the database query.
  */
 export async function GetFormWithSubmissions(id: number) {
     const user: IUser = await getCurrentUser();
@@ -239,6 +239,66 @@ export async function GetFormWithSubmissions(id: number) {
         },
         include: {
             FormSubmissions: true
+        }
+    })
+}
+
+/**
+ * Fetches the content of a form by its shared URL and increments the visit count.
+ *
+ * This function searches for a form in the database that matches the provided `shareURL`.
+ * If found, it retrieves the form's content and increments the `visits` field by 1.
+ * This is useful for tracking how many times a form has been accessed through its public URL.
+ *
+ * @async
+ * @function
+ * @param formUrl - The shared URL of the form to fetch and update.
+ * @returns A promise that resolves to the content of the form as a string.
+ * @throws If an error occurs while querying the database.
+ */
+export async function GetFormContentByUrl(formUrl: string) {
+
+    return await prisma.form.update({
+        select: {
+            content: true,
+        },
+        data: {
+            visits: {
+                increment: 1,
+            }
+        },
+        where: {
+            shareURL: formUrl,
+        }
+    })
+}
+
+/**
+ * Submits a form by updating its record in the database and creating a new submission entry.
+ *
+ * This function is designed to handle the submission of a form identified by its shared URL (`formUrl`). It increments the form's submission count and creates a new submission record with the provided JSON content (`jsonContent`). This is useful for tracking each submission made to a form.
+ *
+ * @async
+ * @function SubmitForm
+ * @param formUrl - The shared URL of the form to submit. This must match exactly with one of the existing form records in the database.
+ * @param jsonContent - The JSON content representing the submitted form data. This should be a serialized JSON string.
+ * @returns A promise that resolves once the form submission has been processed. Note that this function does not return the newly created submission record directly but updates the form record instead.
+ * @throws If an error occurs while querying the database, such as issues connecting to the database or errors returned by Prisma.
+ */
+export async function SubmitForm(formUrl: string, jsonContent: string) {
+    return await prisma.form.update({
+        data: {
+            submissions: {
+                increment: 1,
+            },
+            FormSubmissions: {
+                create: {
+                    content: jsonContent,
+                }
+            }
+        },
+        where: {
+            shareURL: formUrl,
         }
     })
 }
