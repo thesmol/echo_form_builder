@@ -260,6 +260,7 @@ function PropertiesComponent({ elementInstance }: {
                             <FormControl>
                                 <Textarea
                                     {...field}
+                                    rows = {4}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
                                         applyChanges(form.getValues())
