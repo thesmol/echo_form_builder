@@ -236,7 +236,6 @@ function PropertiesComponent({ elementInstance }: {
                                     {...field}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
-                                        applyChanges(form.getValues())
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
@@ -261,7 +260,6 @@ function PropertiesComponent({ elementInstance }: {
                                     {...field}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
-                                        applyChanges(form.getValues())
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
@@ -287,7 +285,6 @@ function PropertiesComponent({ elementInstance }: {
                                     rows={4}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
-                                        applyChanges(form.getValues())
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
@@ -326,6 +323,7 @@ function PropertiesComponent({ elementInstance }: {
                                         <Input
                                             placeholder=""
                                             value={option}
+                                            onFocus={(e) => e.target.select()}
                                             onChange={(e) => {
                                                 field.value[index] = e.target.value;
                                                 field.onChange(field.value)
