@@ -38,6 +38,7 @@ export type ElementsType =
     "NumberField" |
     "TextAreaField" |
     "DateField" |
+    "SelectField" |
     "TitleField" |
     "SubtitleField" |
     "ParagraphField" |

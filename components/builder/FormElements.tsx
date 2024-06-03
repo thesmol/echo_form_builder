@@ -8,12 +8,14 @@ import { SpacerFieldFormElement } from '../fields/SpacerField'
 import { NumberFieldFormElement } from '../fields/NumberField'
 import { TextAreaFieldFormElement } from '../fields/TextAreaField'
 import { DateFieldFormElement } from '../fields/DateField'
+import { SelectFieldFormElement } from '../fields/SelectField'
 
 export const FormElements: FormElementsType = {
     TextField: TextFieldFormElement,
     NumberField: NumberFieldFormElement,
     TextAreaField: TextAreaFieldFormElement,
     DateField: DateFieldFormElement,
+    SelectField: SelectFieldFormElement,
     TitleField: TitleFieldFormElement,
     SubtitleField: SubtitleFieldFormElement,
     ParagraphField: ParagraphFieldFormElement,
