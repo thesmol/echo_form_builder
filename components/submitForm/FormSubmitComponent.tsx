@@ -74,7 +74,6 @@ function FormSubmitComponent({
                 variant: "destructive",
             })
         }
-        console.log(submitValue);
     }
 
     if (submitted) {

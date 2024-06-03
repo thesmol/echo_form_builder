@@ -1,7 +1,16 @@
 import { FormElementsType } from '@/types/types'
-import React from 'react'
 import { TextFieldFormElement } from '../fields/TextField'
+import { TitleFieldFormElement } from '../fields/TitleField'
+import { SubtitleFieldFormElement } from '../fields/SubtitleField'
+import { ParagraphFieldFormElement } from '../fields/ParagraphField'
+import { SeparatorFieldFormElement } from '../fields/SeparatorField'
+import { SpacerFieldFormElement } from '../fields/SpacerField'
 
 export const FormElements: FormElementsType = {
-    TextField: TextFieldFormElement
+    TextField: TextFieldFormElement,
+    TitleField: TitleFieldFormElement,
+    SubtitleField: SubtitleFieldFormElement,
+    ParagraphField: ParagraphFieldFormElement,
+    SeparatorField: SeparatorFieldFormElement,
+    SpacerField: SpacerFieldFormElement,
 }
