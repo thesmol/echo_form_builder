@@ -7,11 +7,13 @@ import { SeparatorFieldFormElement } from '../fields/SeparatorField'
 import { SpacerFieldFormElement } from '../fields/SpacerField'
 import { NumberFieldFormElement } from '../fields/NumberField'
 import { TextAreaFieldFormElement } from '../fields/TextAreaField'
+import { DateFieldFormElement } from '../fields/DateField'
 
 export const FormElements: FormElementsType = {
     TextField: TextFieldFormElement,
     NumberField: NumberFieldFormElement,
     TextAreaField: TextAreaFieldFormElement,
+    DateField: DateFieldFormElement,
     TitleField: TitleFieldFormElement,
     SubtitleField: SubtitleFieldFormElement,
     ParagraphField: ParagraphFieldFormElement,
