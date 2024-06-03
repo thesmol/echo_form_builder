@@ -2,8 +2,11 @@ import { GetFormWithSubmissions } from '@/actions/form';
 import { Column, ElementsType, FormElementInstance, Row } from '@/types/types';
 import React, { ReactNode } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
-import { formatDistance } from 'date-fns';
+import { format, formatDistance } from 'date-fns';
 import { ru } from 'date-fns/locale';
+import { Badge } from '../ui/badge';
+import { Checkbox } from '../ui/checkbox';
+import { cn } from '@/lib/utils';
 
 async function SubmissionsTable({ id }: { id: number }) {
     const form = await GetFormWithSubmissions(id);
@@ -88,16 +91,30 @@ async function SubmissionsTable({ id }: { id: number }) {
 
 export default SubmissionsTable;
 
-function RowCell({
-    type,
-    value }: {
-        type: ElementsType,
-        value: string
-    }) {
+function RowCell({ type, value }: { type: ElementsType; value: string }) {
     let node: ReactNode = value;
+
+    switch (type) {
+        case "DateField":
+            if (!value) break;
+            const date = new Date(value);
+            node = (
+                <Badge variant={"outline"}>
+                    {format(date, "dd/MM/yyyy", { locale: ru })}
+                </Badge>
+            );
+            break;
+        case "CheckBoxField":
+            const checked = value === "true";
+            node = <Checkbox checked={checked} disabled />;
+            break;
+    }
+
     return (
-        <TableCell>
+        <TableCell className={cn(
+            (type === "CheckBoxField" || type === "NumberField")
+            && 'text-center')}>
             {node}
         </TableCell>
-    )
+    );
 }
