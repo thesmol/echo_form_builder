@@ -4,29 +4,23 @@ import {
     ElementsType,
     FormElement,
     FormElementInstance,
-    SubmitFunction
 } from "@/types/types";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useDesigner from "@/hooks/useDesigner";
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage
 } from "../ui/form";
-import { Switch } from "../ui/switch";
-import { Textarea } from "../ui/textarea";
-import { cn } from "@/lib/utils";
 import { LuHeading1 } from "react-icons/lu";
-import { Separator } from "../ui/separator";
 
 const type: ElementsType = "TitleField";
 
