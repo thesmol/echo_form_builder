@@ -7,6 +7,7 @@ import {
 } from "@/types/types";
 import { RiSeparator } from "react-icons/ri";
 import { Separator } from "../ui/separator";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "SeparatorField";
 
