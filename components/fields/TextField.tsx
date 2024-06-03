@@ -212,6 +212,7 @@ function PropertiesComponent({ elementInstance }: {
                                     {...field}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
+                                        applyChanges(form.getValues())
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
@@ -236,6 +237,7 @@ function PropertiesComponent({ elementInstance }: {
                                     {...field}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
+                                        applyChanges(form.getValues())
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
@@ -260,6 +262,7 @@ function PropertiesComponent({ elementInstance }: {
                                     {...field}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
+                                        applyChanges(form.getValues())
                                         if (e.key === "Enter") e.currentTarget.blur();
                                     }}
                                 />
