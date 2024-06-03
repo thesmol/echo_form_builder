@@ -37,7 +37,8 @@ export type ElementsType =
     "TextField" |
     "TitleField" |
     "SubtitleField" |
-    "ParagraphField";
+    "ParagraphField" |
+    "SeparatorField";
 
 export type FormElement = {
     type: ElementsType;
