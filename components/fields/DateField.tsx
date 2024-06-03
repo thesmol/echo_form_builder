@@ -6,7 +6,6 @@ import {
     FormElementInstance,
     SubmitFunction
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -32,6 +31,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { format } from "date-fns";
 import { Calendar } from "../ui/calendar";
 import { ru } from "date-fns/locale";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "DateField";
 

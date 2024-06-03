@@ -5,7 +5,6 @@ import {
     FormElement,
     FormElementInstance,
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
 import { RiSeparator } from "react-icons/ri";
 import { Separator } from "../ui/separator";
 

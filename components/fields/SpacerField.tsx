@@ -5,13 +5,11 @@ import {
     FormElement,
     FormElementInstance,
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "../ui/input";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import useDesigner from "@/hooks/useDesigner";
+import { z } from "zod";
 import {
     Form,
     FormControl,
@@ -22,6 +20,7 @@ import {
 } from "../ui/form";
 import { LuSeparatorHorizontal } from "react-icons/lu";
 import { Slider } from "../ui/slider";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "SpacerField";
 

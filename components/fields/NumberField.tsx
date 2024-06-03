@@ -6,7 +6,6 @@ import {
     FormElementInstance,
     SubmitFunction
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -26,6 +25,7 @@ import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
 import { Bs123 } from "react-icons/bs";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "NumberField";
 

@@ -6,7 +6,6 @@ import {
     FormElementInstance,
     SubmitFunction
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
 import { RxDropdownMenu } from "react-icons/rx";
 import { Input } from "../ui/input";
 import { z } from "zod";
@@ -31,6 +30,7 @@ import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import { AiOutlineClose, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "../ui/use-toast";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "SelectField";
 

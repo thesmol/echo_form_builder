@@ -5,8 +5,6 @@ import {
     FormElement,
     FormElementInstance,
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +20,7 @@ import {
 } from "../ui/form";
 import { BsTextParagraph } from "react-icons/bs";
 import { Textarea } from "../ui/textarea";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "ParagraphField";
 

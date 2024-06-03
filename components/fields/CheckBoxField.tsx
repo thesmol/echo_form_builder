@@ -6,7 +6,6 @@ import {
     FormElementInstance,
     SubmitFunction
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
 import { IoMdCheckbox } from "react-icons/io";
 import { Input } from "../ui/input";
 import { z } from "zod";
@@ -27,6 +26,7 @@ import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "CheckBoxField";
 

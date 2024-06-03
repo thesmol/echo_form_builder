@@ -5,7 +5,6 @@ import {
     FormElement,
     FormElementInstance,
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -21,6 +20,7 @@ import {
     FormMessage
 } from "../ui/form";
 import { LuHeading1 } from "react-icons/lu";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "TitleField";
 

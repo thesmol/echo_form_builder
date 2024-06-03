@@ -6,7 +6,6 @@ import {
     FormElementInstance,
     SubmitFunction
 } from "@/types/types";
-import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
