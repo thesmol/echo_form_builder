@@ -7,7 +7,6 @@ import {
     SubmitFunction
 } from "@/types/types";
 import { Label } from "@radix-ui/react-label";
-import { MdTextFields } from "react-icons/md";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -26,18 +25,19 @@ import {
 import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
+import { Bs123 } from "react-icons/bs";
 
-const type: ElementsType = "TextField";
+const type: ElementsType = "NumberField";
 
 const extraAttributes = {
-    label: "Текстовое поле",
-    helperText: "Заполните текстовое поле",
+    label: "Числовое поле",
+    helperText: "Заполните числовое поле",
     required: false,
-    placeholder: "Текстовое значение тут..."
+    placeholder: "0"
 }
 
 const propertiesSchema = z.object({
-    label: z.string().min(2, "Поле должно содержать как минимум 2 символа").max(80, "Поле может содержать максимум 80 символов"),
+    label: z.string().min(2, "Название поля должно содержать как минимум 2 символа").max(80, "Название поля может содержать максимум 80 символов"),
     helperText: z.string().max(300, "Поле может содержать максимум 300 символов"),
     required: z.boolean().default(false),
     placeholder: z.string().max(80, "Поле может содержать максимум 80 символов"),
@@ -49,7 +49,7 @@ type CustomInstance = FormElementInstance & {
 
 type propertiesFormSchemaType = z.infer<typeof propertiesSchema>;
 
-export const TextFieldFormElement: FormElement = {
+export const NumberFieldFormElement: FormElement = {
     type,
     construct: (id: string) => ({
         id,
@@ -58,8 +58,8 @@ export const TextFieldFormElement: FormElement = {
     }),
 
     designerBtnElement: {
-        icon: MdTextFields,
-        label: "Текстовое поле"
+        icon: Bs123,
+        label: "Числовое поле"
     },
     designerComponent: DesignerComponent,
     formComponent: FormComponent,
@@ -92,6 +92,7 @@ function DesignerComponent({ elementInstance }: {
                 {required && "*"}
             </Label>
             <Input
+                type="number"
                 readOnly
                 disabled
                 placeholder={placeholder}
@@ -134,12 +135,13 @@ function FormComponent({
                 {required && " *"}
             </Label>
             <Input
+                type="number"
                 className={cn(error && "border-red-500")}
                 onChange={(e) => setValue(e.target.value)}
                 onBlur={(e) => {
                     if (!submitValue) return;
 
-                    const valid = TextFieldFormElement.validate(element, e.target.value);
+                    const valid = NumberFieldFormElement.validate(element, e.target.value);
                     setError(!valid);
                     if (!valid) return;
 

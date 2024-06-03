@@ -7,7 +7,6 @@ import {
     SubmitFunction
 } from "@/types/types";
 import { Label } from "@radix-ui/react-label";
-import { MdTextFields } from "react-icons/md";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -26,14 +25,17 @@ import {
 import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
+import { BsTextareaResize } from "react-icons/bs";
+import { Slider } from "../ui/slider";
 
-const type: ElementsType = "TextField";
+const type: ElementsType = "TextAreaField";
 
 const extraAttributes = {
-    label: "Текстовое поле",
-    helperText: "Заполните текстовое поле",
+    label: "Текстовая область",
+    helperText: "Заполните текстовую область",
     required: false,
-    placeholder: "Текстовое значение тут..."
+    placeholder: "Текстовое значение тут...",
+    rows: 3,
 }
 
 const propertiesSchema = z.object({
@@ -41,6 +43,7 @@ const propertiesSchema = z.object({
     helperText: z.string().max(300, "Поле может содержать максимум 300 символов"),
     required: z.boolean().default(false),
     placeholder: z.string().max(80, "Поле может содержать максимум 80 символов"),
+    rows: z.number().min(1, "Количество строк не может быть меньше 1").max(30, "Количество строк не может быть больше 10"),
 })
 
 type CustomInstance = FormElementInstance & {
@@ -49,7 +52,7 @@ type CustomInstance = FormElementInstance & {
 
 type propertiesFormSchemaType = z.infer<typeof propertiesSchema>;
 
-export const TextFieldFormElement: FormElement = {
+export const TextAreaFieldFormElement: FormElement = {
     type,
     construct: (id: string) => ({
         id,
@@ -58,8 +61,8 @@ export const TextFieldFormElement: FormElement = {
     }),
 
     designerBtnElement: {
-        icon: MdTextFields,
-        label: "Текстовое поле"
+        icon: BsTextareaResize,
+        label: "Текстовая область"
     },
     designerComponent: DesignerComponent,
     formComponent: FormComponent,
@@ -83,7 +86,7 @@ function DesignerComponent({ elementInstance }: {
     elementInstance: FormElementInstance
 }) {
     const element = elementInstance as CustomInstance;
-    const { label, required, placeholder, helperText } = element.extraAttributes;
+    const { label, required, placeholder, helperText, rows } = element.extraAttributes;
 
     return (
         <div className="flex flex-col gap-2 w-full">
@@ -91,10 +94,11 @@ function DesignerComponent({ elementInstance }: {
                 {label}
                 {required && "*"}
             </Label>
-            <Input
+            <Textarea
                 readOnly
                 disabled
                 placeholder={placeholder}
+                rows={rows}
             />
             {helperText && (
                 <p className="text-muted-foreground text-[0.8rem]">
@@ -126,20 +130,21 @@ function FormComponent({
     }, [isInvalid])
 
 
-    const { label, required, placeholder, helperText } = element.extraAttributes;
+    const { label, required, placeholder, helperText, rows } = element.extraAttributes;
     return (
         <div className="flex flex-col gap-2 w-full">
             <Label className={cn(error && "text-red-500")}>
                 {label}
                 {required && " *"}
             </Label>
-            <Input
+            <Textarea
+                rows={rows}
                 className={cn(error && "border-red-500")}
                 onChange={(e) => setValue(e.target.value)}
                 onBlur={(e) => {
                     if (!submitValue) return;
 
-                    const valid = TextFieldFormElement.validate(element, e.target.value);
+                    const valid = TextAreaFieldFormElement.validate(element, e.target.value);
                     setError(!valid);
                     if (!valid) return;
 
@@ -163,7 +168,7 @@ function PropertiesComponent({ elementInstance }: {
     const element = elementInstance as CustomInstance;
     const { updateElement } = useDesigner();
 
-    const { label, required, placeholder, helperText } = element.extraAttributes;
+    const { label, required, placeholder, helperText, rows } = element.extraAttributes;
     const form = useForm<propertiesFormSchemaType>({
         resolver: zodResolver(propertiesSchema),
         mode: "onBlur",
@@ -172,6 +177,7 @@ function PropertiesComponent({ elementInstance }: {
             helperText: helperText,
             placeholder: placeholder,
             required: required,
+            rows: rows,
         }
     });
 
@@ -180,7 +186,7 @@ function PropertiesComponent({ elementInstance }: {
     }, [element, form]);
 
     function applyChanges(values: propertiesFormSchemaType) {
-        const { label, required, placeholder, helperText } = values;
+        const { label, required, placeholder, helperText, rows } = values;
         updateElement(element.id, {
             ...element,
             extraAttributes: {
@@ -188,6 +194,7 @@ function PropertiesComponent({ elementInstance }: {
                 helperText,
                 placeholder,
                 required,
+                rows,
             }
         })
     }
@@ -270,6 +277,33 @@ function PropertiesComponent({ elementInstance }: {
                             </FormControl>
                             <FormDescription>
                                 Текст, который будет, <br /> отображен ниже поля
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="rows"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>
+                                Количество строк {form.watch("rows")}
+                            </FormLabel>
+                            <FormControl className="pt-2">
+                                <Slider
+                                    defaultValue={[field.value]}
+                                    min={1}
+                                    max={30}
+                                    step={1}
+                                    onValueChange={(value) => {
+                                        applyChanges(form.getValues())
+                                        field.onChange(value[0])
+                                    }}
+                                />
+                            </FormControl>
+                            <FormDescription>
+                                Количество строк <br /> для текстовой области
                             </FormDescription>
                             <FormMessage />
                         </FormItem>

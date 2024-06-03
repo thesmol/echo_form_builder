@@ -35,6 +35,11 @@ export interface ICreationFormProps {
 
 export type ElementsType =
     "TextField" |
+    "NumberField" |
+    "TextAreaField" |
+    "DateField" |
+    "SelectField" |
+    "CheckBoxField" |
     "TitleField" |
     "SubtitleField" |
     "ParagraphField" |

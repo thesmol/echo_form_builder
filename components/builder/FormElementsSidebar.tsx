@@ -22,6 +22,11 @@ function FormElementsSidebar() {
         <p className="text-sm text-muted-foreground col-span-1 md:col-span-2 my-2 place-self-start">Элементы формы
         </p>
         <SidebarBtnElement formElement={FormElements.TextField} />
+        <SidebarBtnElement formElement={FormElements.TextAreaField} />
+        <SidebarBtnElement formElement={FormElements.NumberField} />
+        <SidebarBtnElement formElement={FormElements.DateField} />
+        <SidebarBtnElement formElement={FormElements.SelectField} />
+        <SidebarBtnElement formElement={FormElements.CheckBoxField} />
       </div>
     </div>
   )

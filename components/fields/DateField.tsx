@@ -7,7 +7,6 @@ import {
     SubmitFunction
 } from "@/types/types";
 import { Label } from "@radix-ui/react-label";
-import { MdTextFields } from "react-icons/md";
 import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -26,21 +25,26 @@ import {
 import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
+import { BsFillCalendarDateFill } from "react-icons/bs";
+import { Button } from "../ui/button";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { format } from "date-fns";
+import { Calendar } from "../ui/calendar";
+import { ru } from "date-fns/locale";
 
-const type: ElementsType = "TextField";
+const type: ElementsType = "DateField";
 
 const extraAttributes = {
-    label: "Текстовое поле",
-    helperText: "Заполните текстовое поле",
+    label: "Поле даты",
+    helperText: "Выберите дату",
     required: false,
-    placeholder: "Текстовое значение тут..."
 }
 
 const propertiesSchema = z.object({
     label: z.string().min(2, "Поле должно содержать как минимум 2 символа").max(80, "Поле может содержать максимум 80 символов"),
     helperText: z.string().max(300, "Поле может содержать максимум 300 символов"),
     required: z.boolean().default(false),
-    placeholder: z.string().max(80, "Поле может содержать максимум 80 символов"),
 })
 
 type CustomInstance = FormElementInstance & {
@@ -49,7 +53,7 @@ type CustomInstance = FormElementInstance & {
 
 type propertiesFormSchemaType = z.infer<typeof propertiesSchema>;
 
-export const TextFieldFormElement: FormElement = {
+export const DateFieldFormElement: FormElement = {
     type,
     construct: (id: string) => ({
         id,
@@ -58,8 +62,8 @@ export const TextFieldFormElement: FormElement = {
     }),
 
     designerBtnElement: {
-        icon: MdTextFields,
-        label: "Текстовое поле"
+        icon: BsFillCalendarDateFill,
+        label: "Дата"
     },
     designerComponent: DesignerComponent,
     formComponent: FormComponent,
@@ -83,7 +87,7 @@ function DesignerComponent({ elementInstance }: {
     elementInstance: FormElementInstance
 }) {
     const element = elementInstance as CustomInstance;
-    const { label, required, placeholder, helperText } = element.extraAttributes;
+    const { label, required, helperText } = element.extraAttributes;
 
     return (
         <div className="flex flex-col gap-2 w-full">
@@ -91,11 +95,10 @@ function DesignerComponent({ elementInstance }: {
                 {label}
                 {required && "*"}
             </Label>
-            <Input
-                readOnly
-                disabled
-                placeholder={placeholder}
-            />
+            <Button variant={"outline"} className="justify-start w-full text-left font-normal items-center">
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                <span>Выберите дату</span>
+            </Button>
             {helperText && (
                 <p className="text-muted-foreground text-[0.8rem]">
                     {helperText}
@@ -116,7 +119,8 @@ function FormComponent({
     isInvalid?: boolean,
     defaultValue?: string,
 }) {
-    const [value, setValue] = useState(defaultValue || "");
+
+    const [date, setDate] = useState<Date | undefined>(defaultValue ? new Date(defaultValue) : undefined);
     const [error, setError] = useState(false);
 
     const element = elementInstance as CustomInstance;
@@ -126,28 +130,47 @@ function FormComponent({
     }, [isInvalid])
 
 
-    const { label, required, placeholder, helperText } = element.extraAttributes;
+    const { label, required, helperText } = element.extraAttributes;
     return (
         <div className="flex flex-col gap-2 w-full">
             <Label className={cn(error && "text-red-500")}>
                 {label}
                 {required && " *"}
             </Label>
-            <Input
-                className={cn(error && "border-red-500")}
-                onChange={(e) => setValue(e.target.value)}
-                onBlur={(e) => {
-                    if (!submitValue) return;
+            <Popover>
+                <PopoverTrigger asChild>
+                    <Button
+                        variant={"outline"}
+                        className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !date && "text-muted-foreground",
+                            error && "border-red-500"
+                        )}
+                    >
+                        <CalendarIcon className="mr-2 h-4 w-4" />
+                        {date ? format(date, "PPP", {
+                            locale: ru
+                        }) : <span>Выберите дату</span>}
+                    </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                        mode="single"
+                        locale={ru}
+                        selected={date}
+                        onSelect={(date) => {
+                            setDate(date);
 
-                    const valid = TextFieldFormElement.validate(element, e.target.value);
-                    setError(!valid);
-                    if (!valid) return;
-
-                    submitValue(element.id, e.target.value)
-                }}
-                value={value}
-                placeholder={placeholder}
-            />
+                            if (!submitValue) return;
+                            const value = date?.toUTCString() || "";
+                            const valid = DateFieldFormElement.validate(element, value);
+                            setError(!valid);
+                            submitValue(element.id, value);
+                        }}
+                        initialFocus
+                    />
+                </PopoverContent>
+            </Popover>
             {helperText && (
                 <p className={cn("text-muted-foreground text-[0.8rem]", error && "text-red-500")}>
                     {helperText}
@@ -163,14 +186,13 @@ function PropertiesComponent({ elementInstance }: {
     const element = elementInstance as CustomInstance;
     const { updateElement } = useDesigner();
 
-    const { label, required, placeholder, helperText } = element.extraAttributes;
+    const { label, required, helperText } = element.extraAttributes;
     const form = useForm<propertiesFormSchemaType>({
         resolver: zodResolver(propertiesSchema),
         mode: "onBlur",
         defaultValues: {
             label: label,
             helperText: helperText,
-            placeholder: placeholder,
             required: required,
         }
     });
@@ -180,13 +202,12 @@ function PropertiesComponent({ elementInstance }: {
     }, [element, form]);
 
     function applyChanges(values: propertiesFormSchemaType) {
-        const { label, required, placeholder, helperText } = values;
+        const { label, required, helperText } = values;
         updateElement(element.id, {
             ...element,
             extraAttributes: {
                 label,
                 helperText,
-                placeholder,
                 required,
             }
         })
@@ -226,31 +247,6 @@ function PropertiesComponent({ elementInstance }: {
                 />
                 <FormField
                     control={form.control}
-                    name="placeholder"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>
-                                Замещающий текст
-                            </FormLabel>
-                            <FormControl>
-                                <Input
-                                    {...field}
-                                    onFocus={(e) => e.target.select()}
-                                    onKeyDown={(e) => {
-                                        applyChanges(form.getValues())
-                                        if (e.key === "Enter") e.currentTarget.blur();
-                                    }}
-                                />
-                            </FormControl>
-                            <FormDescription>
-                                Текст, который будет<br />отображен внутри поля
-                            </FormDescription>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
                     name="helperText"
                     render={({ field }) => (
                         <FormItem>
@@ -260,7 +256,7 @@ function PropertiesComponent({ elementInstance }: {
                             <FormControl>
                                 <Textarea
                                     {...field}
-                                    rows = {4}
+                                    rows={4}
                                     onFocus={(e) => e.target.select()}
                                     onKeyDown={(e) => {
                                         applyChanges(form.getValues())
