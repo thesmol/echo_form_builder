@@ -22,7 +22,7 @@ export function PreviewDialogBtn() {
                     Предпросмотр
                 </Button>
             </DialogTrigger>
-            <DialogContent className='w-screen h-screen max-h-screen max-w-full flex flex-col flex-grow p-0 g-0 border-0 rounded-0'>
+            <DialogContent className='w-screen h-screen max-h-screen max-w-full flex flex-col flex-grow p-0 g-0 border-0 rounded-0 overflow-y-auto'>
                 <div className="px-4 py-2 border-b">
                     <h1 className="text-lg font-bold text-muted-foreground">
                         Предпросмотр формы
@@ -31,8 +31,8 @@ export function PreviewDialogBtn() {
                         Именно так будет выглядеть форма после публикации.
                     </p>
                 </div>
-                <div className="bg-accent flex flex-col flex-grow items-center justify-center p-4 bg-[url(/paper.svg)] dark:bg-[url(/paper-dark.svg)] overflow-y-auto">
-                    <div className="max-w-[620px] flex flex-col gap-4 flex-grow bg-background h-full w-full rounded-xl p-8 overflow-y-auto">
+                <div className="bg-accent flex flex-col flex-grow items-center justify-center p-4 bg-[url(/paper.svg)] dark:bg-[url(/paper-dark.svg)]">
+                    <div className="max-w-[620px] flex flex-col gap-4 flex-grow bg-background h-full w-full rounded-xl p-8">
                         {elements.map(element => {
                             const FormComponent = FormElements[element.type].formComponent;
                             return <FormComponent key={element.id} elementInstance={element} />
