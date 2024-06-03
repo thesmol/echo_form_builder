@@ -36,7 +36,8 @@ export interface ICreationFormProps {
 export type ElementsType =
     "TextField" |
     "TitleField" |
-    "SubtitleField";
+    "SubtitleField" |
+    "ParagraphField";
 
 export type FormElement = {
     type: ElementsType;
