@@ -52,7 +52,7 @@ async function SubmissionsTable({ id }: { id: number }) {
                     <TableHeader>
                         <TableRow>
                             {columns.map((column) => (
-                                <TableHead key={column.id} className='uppercase'>
+                                <TableHead key={column.id} className='uppercase text-xs'>
                                     {column.label}
                                 </TableHead>
                             ))}
