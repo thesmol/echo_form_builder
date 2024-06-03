@@ -33,7 +33,10 @@ export interface ICreationFormProps {
     onSubmit: (values: formSchemaType) => Promise<void>;
 }
 
-export type ElementsType = "TextField" | "TitleField";
+export type ElementsType =
+    "TextField" |
+    "TitleField" |
+    "SubtitleField";
 
 export type FormElement = {
     type: ElementsType;
