@@ -20,6 +20,7 @@ import {
     FormMessage
 } from "../ui/form";
 import { LuHeading2 } from "react-icons/lu";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "SubtitleField";
 

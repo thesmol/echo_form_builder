@@ -26,6 +26,7 @@ import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
 import { BsTextareaResize } from "react-icons/bs";
 import { Slider } from "../ui/slider";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "TextAreaField";
 

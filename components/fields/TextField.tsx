@@ -25,6 +25,7 @@ import {
 import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
+import { Label } from "../ui/label";
 
 const type: ElementsType = "TextField";
 
