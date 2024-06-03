@@ -39,6 +39,7 @@ export type ElementsType =
     "TextAreaField" |
     "DateField" |
     "SelectField" |
+    "CheckBoxField" |
     "TitleField" |
     "SubtitleField" |
     "ParagraphField" |

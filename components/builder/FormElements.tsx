@@ -9,6 +9,7 @@ import { NumberFieldFormElement } from '../fields/NumberField'
 import { TextAreaFieldFormElement } from '../fields/TextAreaField'
 import { DateFieldFormElement } from '../fields/DateField'
 import { SelectFieldFormElement } from '../fields/SelectField'
+import { CheckBoxFieldFormElement } from '../fields/CheckBoxField'
 
 export const FormElements: FormElementsType = {
     TextField: TextFieldFormElement,
@@ -16,6 +17,7 @@ export const FormElements: FormElementsType = {
     TextAreaField: TextAreaFieldFormElement,
     DateField: DateFieldFormElement,
     SelectField: SelectFieldFormElement,
+    CheckBoxField: CheckBoxFieldFormElement,
     TitleField: TitleFieldFormElement,
     SubtitleField: SubtitleFieldFormElement,
     ParagraphField: ParagraphFieldFormElement,
