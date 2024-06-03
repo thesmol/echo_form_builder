@@ -25,7 +25,7 @@ export default function RootLayout({
       <html lang="ru" suppressHydrationWarning>
         <head />
         <body className={inter.className}>
-          <NextTopLoader />
+          <NextTopLoader showSpinner = {false} color = {"#3730a3"}/>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
