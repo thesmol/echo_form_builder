@@ -85,7 +85,7 @@ function FormComponent({
     const { text } = element.extraAttributes;
 
     return (
-        <p>
+        <p className="text-pretty break-words">
             {text}
         </p>
     )
